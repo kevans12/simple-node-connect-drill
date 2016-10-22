@@ -17,16 +17,26 @@ angular.module("myChats").controller("mainCtrl", function($scope, mainSrvc, $int
   }]
 
   $scope.addChat = function(chatmessage){
-    // TODO Call service to add chats
+    mainSrvc.addChat(chatmessage).then(function(response){
+      $scope.chats = response.data;
+    });
   }
 
   function getChats(){
-    // TODO Tell service to get chats
+    mainSrvc.getChats().then(function(response){
+      $scope.chats = response.data;
+    });
   }
 
   $scope.deleteChats = function(){
-    // TODO Tell service to delete all chats
+    mainSrvc.deleteChats().then(function(){
+      $scope.chats = [];
+    });
   }
+
+$scope.setScreenname = function(screenname){
+  mainSrvc.setScreenname(screenname);
+}
 
   // Gets initial chats
   getChats();
